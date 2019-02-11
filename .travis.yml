@@ -1,12 +1,7 @@
 language: julia
-os:
-  - linux
-julia:
-  - 1.0
-notifications:
-  email: false
-git:
-  depth: 99999999
+os: linux
+julia: 1.1
+notifications: {email: false}
 cache:
   timeout: 1000
   directories:
@@ -14,26 +9,16 @@ cache:
 env:
   global:
     - BINARYBUILDER_DOWNLOADS_CACHE=downloads
-    - BINARYBUILDER_AUTOMATIC_APPLE=false
+    - BINARYBUILDER_AUTOMATIC_APPLE=true
 sudo: required
-
-# Before anything else, get the latest versions of things
-before_script:
-  - julia -e 'using Pkg; pkg"add BinaryProvider"; pkg"add BinaryBuilder#master"; Pkg.build()'
-
-script:
-  - julia build_tarballs.jl
-
-
+before_script: julia -e 'using Pkg; pkg"add BinaryProvider"; pkg"add BinaryBuilder#master"; Pkg.build()'
+script: julia build_tarballs.jl
 deploy:
-    provider: releases
-    api_key:
-        # Note; this api_key is only valid for christopher-dG/YAJLBuilder; you need
-        # to make your own: https://docs.travis-ci.com/user/deployment/releases/
-        secure: dIWgYC8J6EiNGsHjCY1cgtHf/3UIc8JHOY6JG1bWJH05pkbUfsldwjFXiLVrutJwsfUfjhvE/jHL8+L/5Xtv2Q4zQBT8msTzICd5GBmMS4z2iJmbRVw6N8d8oyVKeRSzXLhriIby8IDwLxPG+N+GKzO+VSgwgbM4V2amEdUxYIWAQuWoX2//+clBKXN5DFhK+xitLXYxxxtKx2kMbUSaTuf1BRFKreWw+oY9szT3ZG14UlFOO14AnBSlPUdMdJipXpAdn44wmxFeHkt2wv4eieRxGaD7wVlCO2dbf/8XpBCCE0gM/dNBK/igkraRFyGB6dU2Qr0C74nmFdEXIZzZ5ZvKwKitXXlWKPoNfdekh3KOMEk4+iW5erXgv/F41ho2SvmCtGOydpo7rEg++yaXNAxyDNfzRcxnM9vevY3+0uNUtXBKT56hKsnLipCmpcTr+QOpo+0bJD7XnNNBb3vOrHRw6HCTlS7Y+tWQMoHATEjKAmZMaWXIDCzI95pu7SQFHAmE5YkUa5WdSO5HuEz4cse6R1UQa2PPEzZiIZLx2+G19TveL0Wx9UFhD7d5ml/cM331Sce5uYQWPRw6PzMlr81XvOMkz2PC+vel3Tb6Mw20nS14CF9Vc9rTGKZZZ2I9F41x/8NwhHXy5806sCKIAIspvin7PsJM6WlRjbWjcxo=
-    file_glob: true
-    file: products/*
-    skip_cleanup: true
-    on:
-        repo: christopher-dG/YAJLBuilder
-        tags: true
+  provider: releases
+  api_key: {secure: dIWgYC8J6EiNGsHjCY1cgtHf/3UIc8JHOY6JG1bWJH05pkbUfsldwjFXiLVrutJwsfUfjhvE/jHL8+L/5Xtv2Q4zQBT8msTzICd5GBmMS4z2iJmbRVw6N8d8oyVKeRSzXLhriIby8IDwLxPG+N+GKzO+VSgwgbM4V2amEdUxYIWAQuWoX2//+clBKXN5DFhK+xitLXYxxxtKx2kMbUSaTuf1BRFKreWw+oY9szT3ZG14UlFOO14AnBSlPUdMdJipXpAdn44wmxFeHkt2wv4eieRxGaD7wVlCO2dbf/8XpBCCE0gM/dNBK/igkraRFyGB6dU2Qr0C74nmFdEXIZzZ5ZvKwKitXXlWKPoNfdekh3KOMEk4+iW5erXgv/F41ho2SvmCtGOydpo7rEg++yaXNAxyDNfzRcxnM9vevY3+0uNUtXBKT56hKsnLipCmpcTr+QOpo+0bJD7XnNNBb3vOrHRw6HCTlS7Y+tWQMoHATEjKAmZMaWXIDCzI95pu7SQFHAmE5YkUa5WdSO5HuEz4cse6R1UQa2PPEzZiIZLx2+G19TveL0Wx9UFhD7d5ml/cM331Sce5uYQWPRw6PzMlr81XvOMkz2PC+vel3Tb6Mw20nS14CF9Vc9rTGKZZZ2I9F41x/8NwhHXy5806sCKIAIspvin7PsJM6WlRjbWjcxo=}
+  file_glob: true
+  file: products/*
+  skip_cleanup: true
+  on:
+    repo: christopher-dG/YAJLBuilder
+    tags: true
